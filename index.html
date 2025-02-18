@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Горизонтальная Презентация</title>
+    <style>
+        /* Общие стили */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            overflow-x: hidden; /* Предотвращает горизонтальную прокрутку body */
+            overflow-y: auto; /* Разрешает вертикальную прокрутку body */
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ddd;
+        }
+
+        main {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            overflow-x: auto; /* Горизонтальная прокрутка */
+            scroll-snap-type: x mandatory; /* Привязка к слайдам */
+            scroll-behavior: smooth; /* Плавная прокрутка */
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            flex-shrink: 0; /* Важно, чтобы слайды не сжимались */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            scroll-snap-align: start; /* Привязка начала слайда */
+        }
+
+        .slide.active {
+            opacity: 1; /* Показываем активный слайд */
+        }
+
+        .slide-content {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+
+        .slide-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .slide-content p {
+            font-size: 1.2em;
+        }
+
+        /* Стили для десктопной версии (ширина экрана 768px и больше) */
+        @media screen and (min-width: 768px) {
+            header {
+                padding: 20px 0;
+            }
+            nav li {
+                margin: 0 30px;
+            }
+
+            .slide-content h2 {
+                font-size: 4em;
+            }
+
+            .slide-content p {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Стили для мобильной версии (ширина экрана до 767px) */
+        @media screen and (max-width: 767px) {
+            header {
+                padding: 10px 0;
+            }
+
+            nav li {
+                margin: 0 10px;
+            }
+
+            nav a {
+                font-size: 0.9em;
+            }
+
+            .slide-content h2 {
+                font-size: 2em;
+            }
+
+            .slide-content p {
+                font-size: 1em;
+            }
+        }
+
+        /* Стили для дополнительного контента ниже слайдов */
+        .content-below {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content-below h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .content-below .additional-slides {
+            display: flex;
+            overflow-x: auto; /* Горизонтальная прокрутка доп. слайдов */
+            scroll-snap-type: x mandatory;
+            padding: 20px 0;
+        }
+
+        .content-below .additional-slide {
+            width: 300px; /* Или другая ширина */
+            height: 200px; /* Или другая высота */
+            flex-shrink: 0;
+            margin: 0 10px;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="#slide1" data-slide="1">Раздел 1</a></li>
+            <li><a href="#slide2" data-slide="2">Раздел 2</a></li>
+            <li><a href="#slide3" data-slide="3">Раздел 3</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="slide1" class="slide" style="background-image: url('img/slide1.jpg');">
+        <div class="slide-content">
+            <h2>Заголовок Раздела 1</h2>
+            <p>Краткое описание раздела 1.</p>
+        </div>
+    </section>
+
+    <section id="slide2" class="slide" style="background-image: url('img/slide2.jpg');">
+        <div class="slide-content">
+                    <h2>Заголовок Раздела 2</h2>
+            <p>Краткое описание раздела 2.</p>
+        </div>
+    </section>
+
+    <section id="slide3" class="slide" style="background-image: url('img/slide3.jpg');">
+        <div class="slide-content">
+            <h2>Заголовок Раздела 3</h2>
+            <p>Краткое описание раздела 3.</p>
+        </div>
+    </section>
+</main>
+
+<!-- Дополнительный контент ниже слайдов -->
+<div class="content-below">
+    <h2>Дополнительная Информация</h2>
+    <div class="additional-slides">
+        <div class="additional-slide">Слайд 1</div>
+        <div class="additional-slide">Слайд 2</div>
+        <div class="additional-slide">Слайд 3</div>
+        <div class="additional-slide">Слайд 4</div>
+        <!-- Добавьте сколько угодно слайдов -->
+    </div>
+    <p>Более подробное описание текущего раздела.  Можно добавить больше текста, изображений и других элементов.</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.slide');
+        const navLinks = document.querySelectorAll('nav a');
+        const main = document.querySelector('main');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            //console.log("showSlide called with index:", index);
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+            });
+            slides[index].classList.add('active');
+currentSlide = index;
+        }
+
+        function goToSlide(index) {
+            //console.log("goToSlide called with index:", index);
+          if (index < 0 || index >= slides.length) {
+            //console.log("Index out of bounds:", index);
+            return;
+          }
+          showSlide(index);
+
+          main.scrollTo({
+              left: slides[index].offsetLeft,
+              behavior: 'smooth'
+          });
+        }
+
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const slideIndex = parseInt(this.getAttribute('data-slide')) - 1;
+                //console.log("Nav link clicked, slideIndex:", slideIndex);
+                goToSlide(slideIndex);
+            });
+        });
+
+        function scrollToSlideFromHash() {
+            const hash = window.location.hash;
+            //console.log("scrollToSlideFromHash called, hash:", hash);
+            if (hash) {
+                let slideIndex = parseInt(hash.replace('#slide', '')) - 1;
+                //console.log("Extracted slideIndex from hash:", slideIndex);
+
+                if (!isNaN(slideIndex) && slideIndex >= 0 && slideIndex < slides.length) {
+                  //console.log("Valid slideIndex, calling goToSlide");
+                  goToSlide(slideIndex);
+                } else {
+                  //console.log("Invalid slideIndex from hash");
+                }
+            } else {
+                //console.log("No hash found, showing first slide");
+                goToSlide(0);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            // console.log("DOMContentLoaded event fired");
+            scrollToSlideFromHash();
+        });
+
+        window.addEventListener('hashchange', function() {
+            //console.log("hashchange event fired");
+            scrollToSlideFromHash();
+        });
+    });
+</script>
+</body>
+</html>
